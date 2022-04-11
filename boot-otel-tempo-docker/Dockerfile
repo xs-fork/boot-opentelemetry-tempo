@@ -13,6 +13,8 @@ ENV APP_HOME=/app/bin \
 
 RUN mkdir -p ${APP_HOME}
 
+COPY ./scripts/start-app.sh ${APP_HOME}/
+
 #USER root
 #RUN chown -R 1001:1001 ${APP_HOME}
 #RUN ["chmod", "+x", "/app/bin/start-app.sh"]
