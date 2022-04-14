@@ -12,7 +12,7 @@ ENV APP_HOME=/app/bin \
 #ENV JAVA_ALPINE_VERSION 8.212.04-r0
 
 RUN mkdir -p ${APP_HOME}
-COPY ./scripts/start-app.sh ${APP_HOME}/
+COPY ./start-app.sh ${APP_HOME}/
 
 ENV APP_NAME boot-otel-tempo-api
 COPY ./target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
