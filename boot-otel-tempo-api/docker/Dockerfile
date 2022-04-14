@@ -15,7 +15,7 @@ RUN mkdir -p ${APP_HOME}
 COPY ./start-app.sh ${APP_HOME}/
 
 ENV APP_NAME boot-otel-tempo-api
-COPY ./target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
+COPY ./../target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
 
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=0.0.0.0:4317
 
