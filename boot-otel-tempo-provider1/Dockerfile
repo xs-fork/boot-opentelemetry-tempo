@@ -19,4 +19,4 @@ ENV JAVA_OPTS "${JAVA_OPTS} \
   -Dotel.exporter.jaeger.endpoint=http://tempo:14250 \
   -Dotel.metrics.exporter=none \
   -Dotel.resource.attributes="service.name=${APP_NAME}" \
-  -Dotel.javaagent.debug=false"
+  -Dotel.javaagent.debug=true"

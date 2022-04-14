@@ -13,7 +13,7 @@ ENV APP_HOME=/app/bin \
 
 RUN mkdir -p ${APP_HOME}
 
-ENV OTEL_EXPORTER_OTLP_ENDPOINT=0.0.0.0:4317
+ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://0.0.0.0:4317
 
 COPY ./scripts/start-app.sh ${APP_HOME}/
 
