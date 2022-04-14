@@ -66,14 +66,14 @@
 					<fork>true</fork>
       				<skip>false</skip>
 					<mainClass>io.opentelemetry.example.BootOtelTempoProvider1Application</mainClass>
-	                <argLine>
-	                    -javaagent:../boot-otel-tempo-docker/agent/opentelemetry-javaagent-all.jar 
-	                    -Dotel.trace.exporter=jaeger 
-	                    -Dotel.exporter.jaeger.endpoint=localhost:14250  
-	                    -Dotel.resource.attributes=service.name=${project.artifactId} 
-	                    -Dotel.javaagent.debug=false 
-	                    -Dotel.metrics.exporter=none
-	                </argLine>
+<!--	                <argLine>-->
+<!--	                    -javaagent:../boot-otel-tempo-docker/agent/opentelemetry-javaagent-all.jar -->
+<!--	                    -Dotel.trace.exporter=jaeger -->
+<!--	                    -Dotel.exporter.jaeger.endpoint=localhost:14250  -->
+<!--	                    -Dotel.resource.attributes=service.name=${project.artifactId} -->
+<!--	                    -Dotel.javaagent.debug=false -->
+<!--	                    -Dotel.metrics.exporter=none-->
+<!--	                </argLine>-->
 	            </configuration>
 			</plugin>
 			<plugin>
@@ -85,7 +85,7 @@
 		                 <phase>pre-integration-test</phase>
 		                 <goals>
 		                     <goal>build</goal>
-		                     <goal>start</goal>
+<!--		                     <goal>start</goal>-->
 		                 </goals>
 		             </execution>
 		             <execution>
