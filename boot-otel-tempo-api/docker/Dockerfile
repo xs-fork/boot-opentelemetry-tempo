@@ -1,7 +1,7 @@
 FROM mnadeem/boot-otel-tempo-docker:0.0.1-SNAPSHOT
 ENV APP_NAME boot-otel-tempo-api
 
-COPY ./target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
+COPY ./../target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
 
 # EXPOSE 5000 5001
 # ENV JAVA_TOOL_OPTIONS "-Dcom.sun.management.jmxremote.ssl=false \
@@ -19,5 +19,4 @@ ENV JAVA_OPTS "${JAVA_OPTS} \
   -Dotel.exporter.jaeger.endpoint=http://tempo:14250 \
   -Dotel.metrics.exporter=none \
   -Dotel.resource.attributes="service.name=${APP_NAME}" \
-  -Dotel.javaagent.debug=true \
-  -javaagent:${APP_HOME}/${OTEL_AGENT_JAR_FILE}"
+  -Dotel.javaagent.debug=true"
