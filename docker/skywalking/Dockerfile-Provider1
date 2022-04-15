@@ -40,7 +40,7 @@ ENV APP_NAME boot-otel-tempo-provider1
 ENV SW_AGENT_NAME "${APP_NAME}-skywalking"
 ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES oap:11800
 
-COPY ./../../boot-otel-tempo-provider1/target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
+COPY ./jar/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
 
 # EXPOSE 5000 5001
 # ENV JAVA_TOOL_OPTIONS "-Dcom.sun.management.jmxremote.ssl=false \
