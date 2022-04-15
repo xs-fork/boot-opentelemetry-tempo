@@ -25,7 +25,7 @@ RUN mkdir -p /javaagent/opentelemetry/
 
 COPY ./scripts/start-app.sh ${APP_HOME}/
 COPY ./agent/ /javaagent/skywalking/
-COPY ./../../boot-otel-tempo-docker/agent/${OTEL_AGENT_JAR_FILE} /javaagent/opentelemetry/
+COPY ./opentelemetry/${OTEL_AGENT_JAR_FILE} /javaagent/opentelemetry/
 
 #USER root
 #RUN chown -R 1001:1001 ${APP_HOME}
