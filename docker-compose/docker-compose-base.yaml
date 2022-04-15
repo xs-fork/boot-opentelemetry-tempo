@@ -14,8 +14,8 @@ services:
       - JAEGER_SAMPLER_TYPE=const
       - JAEGER_SAMPLER_PARAM=1
     volumes:
-      - . ../etc/loki-local.yaml:/etc/loki/loki-local.yaml
-      - . ../data/loki-data:/tmp/loki
+      - ./../etc/loki-local.yaml:/etc/loki/loki-local.yaml
+      - ./../data/loki-data:/tmp/loki
   provider1-db:
     image: postgres
     networks:
@@ -29,8 +29,8 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - . ../boot-otel-tempo-provider1/db/data:/var/lib/postgresql
-      - . ../boot-otel-tempo-provider1/db/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./../boot-otel-tempo-provider1/db/data:/var/lib/postgresql
+      - ./../boot-otel-tempo-provider1/db/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   pgadmin:
     image: dpage/pgadmin4
@@ -51,8 +51,8 @@ services:
       - xs-bridge
     command: ["-config.file=/etc/tempo.yaml"]
     volumes:
-      - . ../etc/tempo-local.yaml:/etc/tempo.yaml
-      - . ../data/tempo-data:/tmp/tempo
+      - ./../etc/tempo-local.yaml:/etc/tempo.yaml
+      - ./../data/tempo-data:/tmp/tempo
     restart: unless-stopped  
     ports:
       - "14268:14268"  # jaeger ingest, Jaeger - Thrift HTTP
@@ -66,7 +66,7 @@ services:
       - xs-bridge
     command: ["--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml"]
     volumes:
-      - . ../etc/tempo-query.yaml:/etc/tempo-query.yaml
+      - ./../etc/tempo-query.yaml:/etc/tempo-query.yaml
     ports:
       - "16686:16686"  # jaeger-ui
     depends_on:
@@ -78,8 +78,8 @@ services:
       - xs-bridge
     command: -config.file=/etc/promtail/promtail-local.yaml
     volumes:
-      - . ../etc/promtail-local.yaml:/etc/promtail/promtail-local.yaml
-      - . ../data/logs:/app/logs
+      - ./../etc/promtail-local.yaml:/etc/promtail/promtail-local.yaml
+      - ./../data/logs:/app/logs
     depends_on:
 #      - boot-otel-tempo-api
       - loki
@@ -90,9 +90,9 @@ services:
       - xs-bridge
     command: ["--volume-dir=tempo:/tmp/tempo", "--volume-dir=logs:/app/logs", "--volume-dir=loki:/tmp/loki"]
     volumes:
-      - . ../data/logs:/app/logs
-      - . ../data/tempo-data:/tmp/tempo
-      - . ../data/loki-data:/tmp/loki
+      - ./../data/logs:/app/logs
+      - ./../data/tempo-data:/tmp/tempo
+      - ./../data/loki-data:/tmp/loki
     ports:
       - 9889:9888
 
@@ -101,7 +101,7 @@ services:
     networks:
       - xs-bridge
     volumes:
-      - . ../etc/prometheus.yaml:/etc/prometheus.yaml
+      - ./../etc/prometheus.yaml:/etc/prometheus.yaml
     entrypoint:
       - /bin/prometheus
       - --config.file=/etc/prometheus.yaml
@@ -116,9 +116,9 @@ services:
     networks:
       - xs-bridge
     volumes:
-      - . ../data/grafana-data/datasources:/etc/grafana/provisioning/datasources
-      - . ../data/grafana-data/dashboards-provisioning:/etc/grafana/provisioning/dashboards
-      - . ../data/grafana-data/dashboards:/var/lib/grafana/dashboards
+      - ./../data/grafana-data/datasources:/etc/grafana/provisioning/datasources
+      - ./../data/grafana-data/dashboards-provisioning:/etc/grafana/provisioning/dashboards
+      - ./../data/grafana-data/dashboards:/var/lib/grafana/dashboards
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
