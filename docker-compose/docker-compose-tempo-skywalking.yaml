@@ -15,8 +15,8 @@ services:
     volumes:
       - ./../data/logs:/app/logs
     external_links:
-      - tempo:tempo
       - oap:oap
+      - tempo:tempo
       - provider1-db:provider1-db
   boot-otel-tempo-api:
     image: "mnadeem/boot-otel-tempo-api-skywalking:0.0.1-SNAPSHOT"
