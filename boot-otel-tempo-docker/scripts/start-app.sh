@@ -14,8 +14,6 @@ if [ ! -f "${APP_HOME}/${APP_NAME}.jar" ]; then
    exit 1
 fi
 
-source /opt/cli/opentelemetry.sh
-
 echo $JAVA_OPTS $MIN_HEAP_SIZE $MAX_HEAP_SIZE $THREADSTACK_SIZE $JAVA_GC_ARGS $JAVA_DIAG_ARGS $JAVA_OPTS_APPEND $PROG_ARGS
 
 java $JAVA_OPTS \
