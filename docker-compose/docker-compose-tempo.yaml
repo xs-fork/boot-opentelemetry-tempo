@@ -13,7 +13,7 @@ services:
       PROVIDER1_DB_USER: postgres
       PROVIDER1_DB_PASS: postgrespassword
     volumes:
-      - ./data/logs:/app/logs
+      - ./../data/logs:/app/logs
     external_links:
       - tempo:tempo
       - provider1-db:provider1-db
@@ -27,7 +27,7 @@ services:
     environment:
       PROVIDER1_URL_BASE: "http://boot-otel-tempo-provider1:8090"
     volumes:
-      - ./data/logs:/app/logs
+      - ./../data/logs:/app/logs
     depends_on:
       - boot-otel-tempo-provider1
 networks:
