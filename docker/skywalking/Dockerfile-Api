@@ -20,6 +20,8 @@ ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
 RUN apk add --no-cache openjdk8="$JAVA_ALPINE_VERSION"
 
 RUN mkdir -p ${APP_HOME}
+RUN mkdir -p /javaagent/skywalking/
+RUN mkdir -p /javaagent/opentelemetry/
 
 COPY ./scripts/start-app.sh ${APP_HOME}/
 COPY ./agent/ /javaagent/skywalking/
