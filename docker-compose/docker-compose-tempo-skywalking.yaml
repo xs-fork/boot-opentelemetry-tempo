@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  boot-otel-tempo-provider1:
+    image: "mnadeem/boot-otel-tempo-provider1-skywalking:0.0.1-SNAPSHOT"
+    container_name: boot-otel-tempo-provider1-skywalking
+    networks:
+      - xs-bridge
+    ports:
+      - "8090:8090"
+    environment:
+      PROVIDER1_DB_URL: jdbc:postgresql://provider1-db:5432/provider1
+      PROVIDER1_DB_USER: postgres
+      PROVIDER1_DB_PASS: postgrespassword
+    volumes:
+      - ./../data/logs:/app/logs
+    external_links:
+      - tempo:tempo
+      - oap:oap
+      - provider1-db:provider1-db
+  boot-otel-tempo-api:
+    image: "mnadeem/boot-otel-tempo-api-skywalking:0.0.1-SNAPSHOT"
+    container_name: boot-otel-tempo-api-skywalking
+    networks:
+      - xs-bridge
+    ports:
+      - "8070:8080"
+    environment:
+      PROVIDER1_URL_BASE: "http://boot-otel-tempo-provider1:8090"
+    volumes:
+      - ./../data/logs:/app/logs
+    depends_on:
+      - boot-otel-tempo-provider1
+networks:
+  xs-bridge:
+    external: true

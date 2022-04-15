@@ -1,0 +1,63 @@
+FROM openjdk:8-jdk-alpine
+
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
+    PATH=$PATH:$JAVA_HOME/bin \
+    JAVA_VERSION=8u212 \
+    JAVA_ALPINE_VERSION=8.212.04-r0 \
+    OTEL_AGENT_VERSION=0.16.1 \
+    OTEL_AGENT_JAR_FILE=opentelemetry-javaagent-all-0.17.0.jar \
+    APP_HOME=/app/bin \
+    MIN_HEAP_SIZE="40M" MAX_HEAP_SIZE="512M" THREADSTACK_SIZE="228k" \
+    JAVA_GC_ARGS="-XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:+UseSerialGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90" \
+    JAVA_OPTS="-server -Duser.timezone=America/Chicago -Djava.security.egd=file:/dev/./urandom -XX:CompressedClassSpaceSize=64m -XX:MaxMetaspaceSize=256m" \
+    JAVA_DIAG_ARGS="" \
+    JAVA_OPTS_APPEND=""
+
+#ENV PATH $PATH:$JAVA_HOME/bin
+#ENV JAVA_VERSION 8u212
+#ENV JAVA_ALPINE_VERSION 8.212.04-r0
+
+RUN apk add --no-cache openjdk8="$JAVA_ALPINE_VERSION"
+
+RUN mkdir -p ${APP_HOME}
+
+COPY ./scripts/start-app.sh ${APP_HOME}/
+COPY ./agent/ /javaagent/skywalking/
+COPY ./../../boot-otel-tempo-docker/agent/${OTEL_JAR_FILE} /javaagent/opentelemetry/
+
+#USER root
+#RUN chown -R 1001:1001 ${APP_HOME}
+#RUN ["chmod", "+x", "/app/bin/start-app.sh"]
+
+#USER 1001
+
+#ENTRYPOINT [ "/app/bin/start-app.sh" ]
+
+ENV APP_NAME boot-otel-tempo-api
+#Skywalking agent config
+ENV SW_AGENT_NAME "${APP_NAME}-skywalking"
+ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES oap:11800
+
+COPY ./../../boot-otel-tempo-api/target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
+
+# EXPOSE 5000 5001
+# ENV JAVA_TOOL_OPTIONS "-Dcom.sun.management.jmxremote.ssl=false \
+# -Dcom.sun.management.jmxremote.authenticate=false \
+# -Dcom.sun.management.jmxremote.port=5000 \
+# -Dcom.sun.management.jmxremote.rmi.port=5001 \
+# -Dcom.sun.management.jmxremote.host=127.0.0.1  \
+# -Djava.rmi.server.hostname=127.0.0.1"
+
+EXPOSE 8080
+# OpenTelemetry:
+# https://github.com/open-telemetry/opentelemetry-java-instrumentation
+ENV JAVA_OPTS "${JAVA_OPTS} \
+  -Dotel.traces.exporter=jaeger \
+  -Dotel.exporter.jaeger.endpoint=http://tempo:14250 \
+  -Dotel.metrics.exporter=none \
+  -Dotel.resource.attributes="service.name=${APP_NAME}" \
+  -Dotel.javaagent.debug=true \
+  -javaagent:/javaagent/skywalking/agent/skywalking-agent.jar \
+  -javaagent:/javaagent/opentelemetry/${OTEL_AGENT_JAR_FILE}"
+
+CMD ["sh", "/app/bin/start-app.sh"]
