@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  oap:
+    image: apache/skywalking-oap-server:8.9.1
+    container_name: oap
+    restart: always
+    ports:
+      - 11800:11800
+      - 12800:12800
+    networks:
+      - xs-bridge
+    healthcheck:
+      test: ["CMD-SHELL", "/skywalking/bin/swctl ch"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    environment:
+      SW_HEALTH_CHECKER: default
+      JAVA_OPTS: "-Xms2g -Xmx2g"
+  ui:
+    image: apache/skywalking-ui:8.9.1
+    container_name: ui
+    networks:
+      - xs-bridge
+    depends_on:
+      - oap
+    links:
+      - oap
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      SW_OAP_ADDRESS: http://oap:12800
+volumes:
+  data:
+    driver: local
+networks:
+  xs-bridge:
+    external: true
