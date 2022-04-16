@@ -25,7 +25,7 @@ receivers:
 #    const_labels:
 #      label1: value1
 
-  logging:
+#  logging:
 
 #  zipkin:
 #    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
