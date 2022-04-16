@@ -4,4 +4,4 @@ bridge="$(docker network ls | grep $bridge_name)"
 if [ -z "$bridge" ]; then
   docker network create -d bridge "$bridge_name"
 fi
-docker-compose -f docker-compose-tempo-skywalking.yaml up
+docker-compose -f docker-compose-tempo-opentelemetry-skywalking.yaml up
