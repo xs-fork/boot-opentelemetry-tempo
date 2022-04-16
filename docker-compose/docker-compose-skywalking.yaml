@@ -17,6 +17,8 @@ services:
       start_period: 40s
     environment:
       SW_HEALTH_CHECKER: default
+      SW_OTEL_RECEIVER: default
+      SW_OTEL_RECEIVER_ENABLED_OC_RULES: vm
       JAVA_OPTS: "-Xms2g -Xmx2g"
   ui:
     image: apache/skywalking-ui:8.9.1
