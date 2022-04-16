@@ -11,11 +11,7 @@ receivers:
 
 exporters:
   skywalking:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:11800
-      http:
-        endpoint: 0.0.0.0:12800
+    endpoint: 0.0.0.0:11800
     tls:
       insecure: true
     num_streams: 5
