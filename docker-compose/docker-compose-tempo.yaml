@@ -3,7 +3,7 @@ version: "3.8"
 services:
   boot-otel-tempo-provider1:
     image: "mnadeem/boot-otel-tempo-provider1:0.0.1-SNAPSHOT"
-    container_name: boot-otel-tempo-provider1-base
+    container_name: boot-otel-tempo-provider1
     networks:
       - xs-bridge
     ports:
@@ -19,7 +19,7 @@ services:
       - provider1-db:provider1-db
   boot-otel-tempo-api:
     image: "mnadeem/boot-otel-tempo-api:0.0.1-SNAPSHOT"
-    container_name: boot-otel-tempo-api-base
+    container_name: boot-otel-tempo-api
     networks:
       - xs-bridge
     ports:
