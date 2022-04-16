@@ -52,10 +52,10 @@ processors:
 service:
   pipelines:
     traces:
-      receivers: [ skywalking ]
+      receivers: [ otlp ]
       #      processors: [batch]
       #      exporters: [logging, zipkin, jaeger]
-      exporters: [ logging ]
+      exporters: [ skywalking ]
     logs:
       receivers: [ otlp ]
       #      processors: [ batch ]
