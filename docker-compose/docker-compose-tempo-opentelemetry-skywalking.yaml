@@ -12,6 +12,8 @@ services:
       - "4317"        # OTLP gRPC receiver
     networks:
       - xs-bridge
+    external_links:
+      - oap
   boot-otel-tempo-provider1-opentelemetry-skywalking:
     image: "mnadeem/boot-otel-tempo-provider1-opentelemetry-skywalking:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-provider1-opentelemetry-skywalking
@@ -27,7 +29,6 @@ services:
     volumes:
       - ./../data/logs:/app/logs
     external_links:
-      - oap
       - provider1-db:provider1-db
   boot-otel-tempo-api-opentelemetry-skywalking:
     image: "mnadeem/boot-otel-tempo-api-opentelemetry-skywalking:0.0.1-SNAPSHOT"
