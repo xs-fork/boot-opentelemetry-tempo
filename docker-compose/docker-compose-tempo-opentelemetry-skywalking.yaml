@@ -4,6 +4,7 @@ services:
   # Collector
   otel-collector:
     image: ${OTELCOL_IMG}
+    container_name: otel-collector
     command: [ "--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}" ]
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml

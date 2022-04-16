@@ -6,12 +6,12 @@ receivers:
       http:
         endpoint: 192.168.100.10:12800
 
-exporters:
-  skywalking:
-    endpoint: 192.168.100.10:11800
-    tls:
-      insecure: true
-    num_streams: 5
+#exporters:
+#  skywalking:
+#    endpoint: 192.168.100.10:11800
+#    tls:
+#      insecure: true
+#    num_streams: 5
 #  skywalking/2:
 #    endpoint: 192.168.100.10:11800
 #    compression: "gzip"
