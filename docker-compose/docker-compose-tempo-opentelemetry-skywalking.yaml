@@ -23,11 +23,12 @@ services:
       PROVIDER1_DB_URL: jdbc:postgresql://provider1-db:5432/provider1
       PROVIDER1_DB_USER: postgres
       PROVIDER1_DB_PASS: postgrespassword
-      OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector:4317
     volumes:
       - ./../data/logs:/app/logs
     external_links:
       - provider1-db:provider1-db
+    depends_on:
+      - otel-collector
   boot-otel-tempo-api-opentelemetry-skywalking:
     image: "mnadeem/boot-otel-tempo-api-opentelemetry-skywalking:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-api-opentelemetry-skywalking
@@ -37,16 +38,10 @@ services:
       - "8072:8080"
     environment:
       PROVIDER1_URL_BASE: "http://boot-otel-tempo-provider1-opentelemetry-skywalking:8090"
-      OTEL_TRACES_EXPORTER: otel-collector
-      OTEL_METRICS_EXPORTER: otel-collector
-      OTEL_LOGS_EXPORTER: otel-collector
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://0.0.0.0:4317
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://0.0.0.0:4317
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: http://0.0.0.0:4317
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: http://0.0.0.0:4317
     volumes:
       - ./../data/logs:/app/logs
     depends_on:
+      - otel-collector
       - boot-otel-tempo-provider1-opentelemetry-skywalking
 networks:
   xs-bridge:
