@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  boot-otel-tempo-provider1:
+  boot-otel-tempo-provider1-skywalking:
     image: "mnadeem/boot-otel-tempo-provider1-skywalking:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-provider1-skywalking
     networks:
@@ -18,7 +18,7 @@ services:
       - oap:oap
       - tempo:tempo
       - provider1-db:provider1-db
-  boot-otel-tempo-api:
+  boot-otel-tempo-api-skywalking:
     image: "mnadeem/boot-otel-tempo-api-skywalking:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-api-skywalking
     networks:
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./../data/logs:/app/logs
     depends_on:
-      - boot-otel-tempo-provider1
+      - boot-otel-tempo-provider1-skywalking
 networks:
   xs-bridge:
     external: true
