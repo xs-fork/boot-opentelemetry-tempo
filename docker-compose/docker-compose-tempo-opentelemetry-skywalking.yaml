@@ -27,6 +27,7 @@ services:
     volumes:
       - ./../data/logs:/app/logs
     external_links:
+      - oap
       - provider1-db:provider1-db
   boot-otel-tempo-api-opentelemetry-skywalking:
     image: "mnadeem/boot-otel-tempo-api-opentelemetry-skywalking:0.0.1-SNAPSHOT"
