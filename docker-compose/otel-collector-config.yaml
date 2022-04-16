@@ -11,7 +11,11 @@ receivers:
 
 exporters:
   skywalking:
-    endpoint: 0.0.0.0:11800
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:11800
+      http:
+        endpoint: 0.0.0.0:12800
     tls:
       insecure: true
     num_streams: 5
@@ -55,10 +59,10 @@ service:
       receivers: [ skywalking ]
       processors: [ batch ]
       exporters: [ logging ]
-#    logs:
-#      receivers: [ otlp ]
-#      processors: [ batch ]
-#      exporters: [ logging, skywalking ]
+    logs:
+      receivers: [ otlp ]
+      processors: [ batch ]
+      exporters: [ logging, skywalking ]
     metrics:
       receivers: [ otlp ]
       processors: [ batch ]
