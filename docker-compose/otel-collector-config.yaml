@@ -1,4 +1,7 @@
 receivers:
+  otlp:
+    protocols:
+      grpc:
   skywalking:
     protocols:
       grpc:
@@ -12,18 +15,18 @@ exporters:
     tls:
       insecure: true
     num_streams: 5
-#  skywalking/2:
-#    endpoint: 192.168.100.10:11800
-#    compression: "gzip"
-#    tls:
-#      cert_file: file.cert
-#      key_file: file.key
-#    timeout: 10s
+  #  skywalking/2:
+  #    endpoint: 192.168.100.10:11800
+  #    compression: "gzip"
+  #    tls:
+  #      cert_file: file.cert
+  #      key_file: file.key
+  #    timeout: 10s
 
-#  prometheus:
-#    endpoint: "0.0.0.0:8889"
-#    const_labels:
-#      label1: value1
+  #  prometheus:
+  #    endpoint: "0.0.0.0:8889"
+  #    const_labels:
+  #      label1: value1
 
   logging:
 
@@ -49,16 +52,16 @@ processors:
 service:
   pipelines:
     traces:
-      receivers: [skywalking]
-#      processors: [batch]
-#      exporters: [logging, zipkin, jaeger]
-      exporters: [logging]
+      receivers: [ skywalking ]
+      #      processors: [batch]
+      #      exporters: [logging, zipkin, jaeger]
+      exporters: [ logging ]
     logs:
-#      receivers: [ skywalking ]
-#      processors: [ batch ]
+      receivers: [ otlp ]
+      #      processors: [ batch ]
       exporters: [ skywalking ]
     metrics:
-#      receivers: [otlp]
-#      processors: [batch]
-#      exporters: [logging, prometheus]
-      exporters: [skywalking]
+      receivers: [ otlp ]
+      #      processors: [batch]
+      #      exporters: [logging, prometheus]
+      exporters: [ skywalking ]
