@@ -2,12 +2,12 @@ receivers:
   otlp:
     protocols:
       grpc:
-  skywalking:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:11800
-      http:
-        endpoint: 0.0.0.0:12800
+#  skywalking:
+#    protocols:
+#      grpc:
+#        endpoint: 0.0.0.0:11800
+#      http:
+#        endpoint: 0.0.0.0:12800
 
 exporters:
   skywalking:
@@ -53,15 +53,13 @@ service:
   pipelines:
     traces:
       receivers: [ otlp ]
-      #      processors: [batch]
-      #      exporters: [logging, zipkin, jaeger]
-      exporters: [ skywalking ]
-    logs:
-      receivers: [ otlp ]
-      #      processors: [ batch ]
-      exporters: [ skywalking ]
+      processors: [ batch ]
+      exporters: [ logging, skywalking ]
+#    logs:
+#      receivers: [ otlp ]
+#      processors: [ batch ]
+#      exporters: [ logging, skywalking ]
     metrics:
       receivers: [ otlp ]
-      #      processors: [batch]
-      #      exporters: [logging, prometheus]
-      exporters: [ skywalking ]
+      processors: [ batch ]
+      exporters: [ logging, skywalking ]
