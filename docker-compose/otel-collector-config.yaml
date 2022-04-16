@@ -51,10 +51,10 @@ processors:
 
 service:
   pipelines:
-    traces:
-      receivers: [ otlp ]
-      processors: [ batch ]
-      exporters: [ logging, skywalking ]
+#    traces:
+#      receivers: [ otlp ]
+#      processors: [ batch ]
+#      exporters: [ logging, skywalking ]
 #    logs:
 #      receivers: [ otlp ]
 #      processors: [ batch ]
