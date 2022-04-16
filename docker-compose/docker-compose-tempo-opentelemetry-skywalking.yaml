@@ -38,6 +38,8 @@ services:
     environment:
       PROVIDER1_URL_BASE: "http://boot-otel-tempo-provider1-opentelemetry-skywalking:8090"
       OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector:4317
+      OTEL_TRACES_EXPORTER: otel-collector:4317
+      OTEL_METRICS_EXPORTER: otel-collector:4317
     volumes:
       - ./../data/logs:/app/logs
     depends_on:
