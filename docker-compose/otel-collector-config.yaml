@@ -52,8 +52,9 @@ service:
       receivers: [skywalking]
 #      processors: [batch]
 #      exporters: [logging, zipkin, jaeger]
-      exporters: [skywalking]
-#    metrics:
+      exporters: [logging]
+    metrics:
 #      receivers: [otlp]
 #      processors: [batch]
 #      exporters: [logging, prometheus]
+      exporters: [skywalking]
