@@ -58,8 +58,8 @@ service:
     logs:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging, skywalking ]
+      exporters: [ skywalking ]
     metrics:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging, skywalking ]
+      exporters: [ skywalking ]
