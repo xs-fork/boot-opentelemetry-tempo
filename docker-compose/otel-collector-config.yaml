@@ -45,7 +45,7 @@ service:
     logs:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ skywalking ]
+      exporters: [ skywalking ,logging ]
     metrics:
       receivers: [ otlp,prometheus ]
       processors: [ batch ]
