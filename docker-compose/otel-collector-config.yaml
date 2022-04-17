@@ -18,7 +18,7 @@ exporters:
   opencensus:
     endpoint: "oap:11800" # The OAP Server address
     tls:
-     insecure: true
+      insecure: true
   skywalking:
     endpoint: "oap:11800"
     tls:
@@ -41,7 +41,7 @@ service:
     traces:
       receivers: [ otlp, skywalking ]
       processors: [ batch ]
-      exporters: [ logging ]
+      exporters: [ logging,opencensus ]
     logs:
       receivers: [ otlp ]
       processors: [ batch ]
