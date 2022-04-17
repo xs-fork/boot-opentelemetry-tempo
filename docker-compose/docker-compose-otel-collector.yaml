@@ -1,11 +1,6 @@
 version: "3.8"
 
 services:
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: node-exporter
-    ports:
-      - "9100:9100"
   # Collector
   otel-collector:
     image: ${OTELCOL_IMG}
@@ -25,7 +20,6 @@ services:
       - xs-bridge
     external_links:
       - oap:oap
-    depends_on:
       - node-exporter
 networks:
   xs-bridge:
