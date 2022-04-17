@@ -6,8 +6,6 @@ receivers:
     protocols:
       grpc:
         endpoint: "oap:11800"
-      http:
-        endpoint: "oap:12800"
 #  skywalking:
 #    protocols:
 #      grpc:
