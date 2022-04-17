@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   oap:
-    image: apache/skywalking-oap-server:8.9.1
+    image: apache/skywalking-oap-server:latest
     container_name: oap
     restart: always
     ports:
@@ -9,19 +9,13 @@ services:
       - 12800:12800
     networks:
       - xs-bridge
-    healthcheck:
-      test: ["CMD-SHELL", "/skywalking/bin/swctl ch"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
     environment:
       SW_HEALTH_CHECKER: default
       SW_OTEL_RECEIVER: default
       SW_OTEL_RECEIVER_ENABLED_OC_RULES: vm
       JAVA_OPTS: "-Xms2g -Xmx2g"
   ui:
-    image: apache/skywalking-ui:8.9.1
+    image: apache/skywalking-ui:latest
     container_name: ui
     networks:
       - xs-bridge
