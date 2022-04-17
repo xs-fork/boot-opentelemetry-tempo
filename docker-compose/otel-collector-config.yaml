@@ -6,7 +6,7 @@ receivers:
     config:
       scrape_configs:
         - job_name: 'otel-collector'
-          scrape_interval: 1s
+          scrape_interval: 5s
           static_configs:
             - targets: [ 'node-exporter:9100' ]
   skywalking:
@@ -26,8 +26,7 @@ exporters:
     num_streams: 5
 
   logging:
-    # 注意这里的日志级别不要设的太高，否则会磁盘爆满
-    logLevel: debug
+    logLevel: info
 processors:
   batch:
 
