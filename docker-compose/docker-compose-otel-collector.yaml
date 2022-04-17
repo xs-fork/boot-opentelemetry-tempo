@@ -32,7 +32,6 @@ services:
       - oap:oap
     depends_on:
       - jaeger
-      - zipkin
 networks:
   xs-bridge:
     external: true
