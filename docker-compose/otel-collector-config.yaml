@@ -39,7 +39,7 @@ service:
   extensions: [ pprof, zpages, health_check ]
   pipelines:
     traces:
-      receivers: [ otlp, skywalking,prometheus ]
+      receivers: [ otlp, skywalking ]
       processors: [ batch ]
       exporters: [ logging,opencensus ]
     logs:
