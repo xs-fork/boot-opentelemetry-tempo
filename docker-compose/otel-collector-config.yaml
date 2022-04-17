@@ -23,8 +23,6 @@ exporters:
     endpoint: "oap:11800"
     tls:
       insecure: true
-    num_streams: 5
-
   logging:
     logLevel: info
 processors:
