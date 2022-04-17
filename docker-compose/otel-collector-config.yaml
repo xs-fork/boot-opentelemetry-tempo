@@ -17,7 +17,8 @@ receivers:
 exporters:
   opencensus:
     endpoint: "oap:11800" # The OAP Server address
-    insecure: true
+    tls:
+     insecure: true
   skywalking:
     endpoint: "oap:11800"
     tls:
