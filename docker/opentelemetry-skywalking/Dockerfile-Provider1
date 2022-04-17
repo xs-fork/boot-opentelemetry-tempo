@@ -54,10 +54,10 @@ ENV JAVA_OPTS "${JAVA_OPTS} \
 #  -Dotel.traces.exporter=otel-collector \
 #  -Dotel.metrics.exporter=otel-collector \
 #  -Dotel.logs.exporter=otel-collector \
-  -Dotel.exporter.otlp.endpoint=http://otel-collector:11800 \
-  -Dotel.exporter.otlp.traces.endpoint=http://otel-collector:11800 \
-  -Dotel.exporter.otlp.metrics.endpoint=http://otel-collector:11800 \
-  -Dotel.exporter.otlp.logs.endpoint=http://otel-collector:11800 \
+#  -Dotel.exporter.otlp.endpoint=http://otel-collector:11800 \
+#  -Dotel.exporter.otlp.traces.endpoint=http://otel-collector:11800 \
+#  -Dotel.exporter.otlp.metrics.endpoint=http://otel-collector:11800 \
+#  -Dotel.exporter.otlp.logs.endpoint=http://otel-collector:11800 \
   -Dotel.resource.attributes="service.name=${SERVICE_NAME}" \
   -Dotel.javaagent.debug=true \
   -javaagent:/javaagent/opentelemetry/${OTEL_AGENT_JAR_FILE}"
