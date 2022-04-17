@@ -10,8 +10,6 @@ services:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
       - "4317"
-      - "11800"
-      - "12800"
     networks:
       - xs-bridge
     external_links:
