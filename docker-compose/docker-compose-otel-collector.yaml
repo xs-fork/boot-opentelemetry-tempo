@@ -5,7 +5,7 @@ services:
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
-      - "16686:16686"
+      - "16687:16686"
       - "14250"
   # Collector
   otel-collector:
