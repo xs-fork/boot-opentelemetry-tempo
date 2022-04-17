@@ -8,6 +8,10 @@ receivers:
 #        endpoint: oap:11800
 
 exporters:
+  jaeger:
+    endpoint: "jaeger:14250"
+    tls:
+      insecure: true
   skywalking:
     endpoint: oap:11800
     tls:
@@ -53,17 +57,17 @@ extensions:
 #    endpoint: :55679
 
 service:
-  extensions: [pprof, zpages, health_check]
+  extensions: [ pprof, zpages, health_check ]
   pipelines:
     traces:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging ]
+      exporters: [ logging,jaeger ]
     logs:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ skywalking ]
+      exporters: [ skywalking,jaeger ]
     metrics:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ skywalking ]
+      exporters: [ skywalking,jaeger ]
