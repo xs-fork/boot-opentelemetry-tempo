@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  # Collector
+  otel-collector:
+    image: ${OTELCOL_IMG}
+    container_name: otel-collector
+    command: [ "--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}" ]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317"
+      - "11800"
+      - "12800"
+    networks:
+      - xs-bridge
+    external_links:
+      - oap:oap
+networks:
+  xs-bridge:
+    external: true

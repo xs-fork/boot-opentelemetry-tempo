@@ -1,19 +1,6 @@
 version: "3.8"
 
 services:
-  # Collector
-  otel-collector:
-    image: ${OTELCOL_IMG}
-    container_name: otel-collector
-    command: [ "--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}" ]
-    volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
-    ports:
-      - "4317"
-      - "11800"
-      - "12800"
-    networks:
-      - xs-bridge
   boot-otel-tempo-provider1-opentelemetry-skywalking:
     image: "mnadeem/boot-otel-tempo-provider1-opentelemetry-skywalking:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-provider1-opentelemetry-skywalking
@@ -30,7 +17,6 @@ services:
       - ./../data/logs:/app/logs
     external_links:
       - provider1-db:provider1-db
-    depends_on:
       - otel-collector
   boot-otel-tempo-api-opentelemetry-skywalking:
     image: "mnadeem/boot-otel-tempo-api-opentelemetry-skywalking:0.0.1-SNAPSHOT"
@@ -45,7 +31,6 @@ services:
     volumes:
       - ./../data/logs:/app/logs
     depends_on:
-      - otel-collector
       - boot-otel-tempo-provider1-opentelemetry-skywalking
 networks:
   xs-bridge:

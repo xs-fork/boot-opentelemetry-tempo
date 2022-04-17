@@ -5,13 +5,13 @@ receivers:
   skywalking:
     protocols:
       grpc:
-        endpoint: 0.0.0.0:11800
+        endpoint: oap:11800
       http:
-        endpoint: 0.0.0.0:12800
+        endpoint: oap:12800
 
 exporters:
   skywalking:
-    endpoint: 0.0.0.0:11800
+    endpoint: oap:11800
     tls:
       insecure: true
     num_streams: 5
