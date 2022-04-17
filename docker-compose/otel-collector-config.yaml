@@ -38,13 +38,13 @@ service:
   pipelines:
     traces:
       receivers: [ otlp, skywalking ]
-      processors: [ batch ]
+#      processors: [ batch ]
       exporters: [ logging,opencensus ]
     logs:
       receivers: [ otlp ]
-      processors: [ batch ]
+#      processors: [ batch ]
       exporters: [ skywalking ,logging ]
     metrics:
       receivers: [ otlp,prometheus ]
-      processors: [ batch ]
+#      processors: [ batch ]
       exporters: [ skywalking,opencensus,logging ]
