@@ -2,12 +2,16 @@ receivers:
   otlp:
     protocols:
       grpc:
+  skywalking:
+  zipkin:
 #  skywalking:
 #    protocols:
 #      grpc:
 #        endpoint: oap:11800
 
 exporters:
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"
   jaeger:
     endpoint: "jaeger:14250"
     tls:
@@ -60,9 +64,9 @@ service:
   extensions: [ pprof, zpages, health_check ]
   pipelines:
     traces:
-      receivers: [ otlp ]
+      receivers: [ otlp, zipkin, skywalking ]
       processors: [ batch ]
-      exporters: [ logging,jaeger ]
+      exporters: [ logging,jaeger,zipkin ]
     logs:
       receivers: [ otlp ]
       processors: [ batch ]

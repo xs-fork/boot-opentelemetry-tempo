@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - 9411:9411
   # Jaeger
   jaeger:
     image: jaegertracing/all-in-one:latest
@@ -15,13 +20,19 @@ services:
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
+      - "11800"  # skywalking
       - "4317"
+      - "9411"   # Zipkin receiver
+      - "1888:1888"   # pprof extension
+      - "13133:13133" # health_check extension
+      - "55679:55679" # zpages extension
     networks:
       - xs-bridge
     external_links:
       - oap:oap
     depends_on:
       - jaeger
+      - zipkin
 networks:
   xs-bridge:
     external: true
