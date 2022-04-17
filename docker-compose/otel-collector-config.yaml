@@ -2,12 +2,10 @@ receivers:
   otlp:
     protocols:
       grpc:
-#  skywalking:
-#    protocols:
-#      grpc:
-#        endpoint: oap:11800
-#      http:
-#        endpoint: oap:12800
+  skywalking:
+    protocols:
+      grpc:
+        endpoint: oap:11800
 
 exporters:
   skywalking:
@@ -42,6 +40,11 @@ exporters:
 processors:
   batch:
 
+extensions:
+  health_check:
+  pprof:
+  zpages:
+
 #extensions:
 #  health_check:
 #  pprof:
@@ -50,16 +53,17 @@ processors:
 #    endpoint: :55679
 
 service:
+  extensions: [pprof, zpages, health_check]
   pipelines:
     traces:
-      receivers: [ otlp ]
+      receivers: [ otlp,skywalking ]
       processors: [ batch ]
-      exporters: [ skywalking ]
+      exporters: [ logging ]
     logs:
-      receivers: [ otlp ]
+      receivers: [ otlp,skywalking ]
       processors: [ batch ]
       exporters: [ skywalking ]
     metrics:
-      receivers: [ otlp ]
+      receivers: [ otlp,skywalking ]
       processors: [ batch ]
       exporters: [ skywalking ]
