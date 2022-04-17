@@ -26,7 +26,7 @@ exporters:
     num_streams: 5
 
   logging:
-    logLevel: debug
+    logLevel: info
 processors:
   batch:
 
