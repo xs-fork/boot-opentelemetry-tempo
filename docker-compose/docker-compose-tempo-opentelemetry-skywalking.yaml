@@ -13,7 +13,7 @@ services:
       PROVIDER1_DB_USER: postgres
       PROVIDER1_DB_PASS: postgrespassword
       OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector:4317
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: otel-collector:4317
+#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: otel-collector:4317
       OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=: otel-collector:4317
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: otel-collector:4317
     volumes:
@@ -31,7 +31,7 @@ services:
     environment:
       PROVIDER1_URL_BASE: "http://boot-otel-tempo-provider1-opentelemetry-skywalking:8090"
       OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector:4317
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: otel-collector:4317
+#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: otel-collector:4317
       OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=: otel-collector:4317
       OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: otel-collector:4317
     volumes:
