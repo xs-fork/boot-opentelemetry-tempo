@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
   # Collector
   otel-collector:
     image: ${OTELCOL_IMG}
@@ -14,11 +19,14 @@ services:
       - "9411"   # Zipkin receiver
       - "1888:1888"   # pprof extension
       - "13133:13133" # health_check extension
+      - "55678:55678"       # OpenCensus receiver
       - "55679:55679" # zpages extension
     networks:
       - xs-bridge
     external_links:
       - oap:oap
+    depends_on:
+      - node-exporter
 networks:
   xs-bridge:
     external: true

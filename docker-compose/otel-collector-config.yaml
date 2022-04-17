@@ -2,45 +2,31 @@ receivers:
   otlp:
     protocols:
       grpc:
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: 'otel-collector'
+          scrape_interval: 1s
+          static_configs:
+            - targets: [ 'node-exporter:9100' ]
   skywalking:
     protocols:
       grpc:
         endpoint: "oap:11800"
-#  skywalking:
-#    protocols:
-#      grpc:
-#        endpoint: oap:11800
 
 exporters:
+  opencensus:
+    endpoint: "oap:11800" # The OAP Server address
+    insecure: true
   skywalking:
     endpoint: "oap:11800"
     tls:
       insecure: true
     num_streams: 5
-  #  skywalking/2:
-  #    endpoint: 192.168.100.10:11800
-  #    compression: "gzip"
-  #    tls:
-  #      cert_file: file.cert
-  #      key_file: file.key
-  #    timeout: 10s
-
-  #  prometheus:
-  #    endpoint: "0.0.0.0:8889"
-  #    const_labels:
-  #      label1: value1
 
   logging:
-
-#  zipkin:
-#    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
-#    format: proto
-#
-#  jaeger:
-#    endpoint: jaeger-all-in-one:14250
-#    tls:
-#      insecure: true
-
+    # 注意这里的日志级别不要设的太高，否则会磁盘爆满
+    logLevel: debug
 processors:
   batch:
 
@@ -48,13 +34,6 @@ extensions:
   health_check:
   pprof:
   zpages:
-
-#extensions:
-#  health_check:
-#  pprof:
-#    endpoint: :1888
-#  zpages:
-#    endpoint: :55679
 
 service:
   extensions: [ pprof, zpages, health_check ]
@@ -68,6 +47,6 @@ service:
       processors: [ batch ]
       exporters: [ skywalking ]
     metrics:
-      receivers: [ otlp ]
+      receivers: [ otlp,prometheus ]
       processors: [ batch ]
-      exporters: [ skywalking ]
+      exporters: [ skywalking,opencensus,logging ]
