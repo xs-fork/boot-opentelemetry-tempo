@@ -1,12 +1,6 @@
 version: "3.8"
 
 services:
-  # Jaeger
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    ports:
-      - "16687:16686"
-      - "14250"
   # Collector
   otel-collector:
     image: ${OTELCOL_IMG}
@@ -25,8 +19,6 @@ services:
       - xs-bridge
     external_links:
       - oap:oap
-    depends_on:
-      - jaeger
 networks:
   xs-bridge:
     external: true

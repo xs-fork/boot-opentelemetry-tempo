@@ -12,10 +12,6 @@ receivers:
 #        endpoint: oap:11800
 
 exporters:
-  jaeger:
-    endpoint: "jaeger:14250"
-    tls:
-      insecure: true
   skywalking:
     endpoint: "oap:11800"
     tls:
@@ -66,7 +62,7 @@ service:
     traces:
       receivers: [ otlp, skywalking ]
       processors: [ batch ]
-      exporters: [ logging,jaeger ]
+      exporters: [ logging ]
     logs:
       receivers: [ otlp ]
       processors: [ batch ]
