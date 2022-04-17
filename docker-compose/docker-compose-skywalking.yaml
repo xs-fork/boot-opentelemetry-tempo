@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   oap:
-    image: apache/skywalking-oap-server:latest
+    image: apache/skywalking-oap-server:8.9.1
     container_name: oap
     restart: always
     ports:
@@ -15,7 +15,7 @@ services:
       SW_OTEL_RECEIVER_ENABLED_OC_RULES: vm
       JAVA_OPTS: "-Xms2g -Xmx2g"
   ui:
-    image: apache/skywalking-ui:latest
+    image: apache/skywalking-ui:8.9.1
     container_name: ui
     networks:
       - xs-bridge
