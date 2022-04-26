@@ -5,7 +5,7 @@ services:
     image: "mnadeem/boot-otel-tempo-provider1:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-provider1
     networks:
-      - xs-bridge
+      - grafana_apm
     ports:
       - "8090:8090"
     environment:
@@ -13,23 +13,40 @@ services:
       PROVIDER1_DB_USER: postgres
       PROVIDER1_DB_PASS: postgrespassword
     volumes:
-      - ./../data/logs:/app/logs
+      - /home/ec2-user/grafana/promtail/data/logs:/app/logs
     external_links:
-      - tempo:tempo
-      - provider1-db:provider1-db
+      - grafana_tempo_1:tempo
+    depends_on:
+      - provider1-db
+  provider1-db:
+    image: postgres
+    container_name: provider1-db
+    networks:
+      - grafana_apm
+    restart: always
+    environment:
+      - POSTGRES_DB=provider1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespassword
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - ./../boot-otel-tempo-provider1/db/data:/var/lib/postgresql
+      - ./../boot-otel-tempo-provider1/db/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
   boot-otel-tempo-api:
     image: "mnadeem/boot-otel-tempo-api:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-api
     networks:
-      - xs-bridge
+      - grafana_apm
     ports:
       - "8070:8080"
     environment:
       PROVIDER1_URL_BASE: "http://boot-otel-tempo-provider1:8090"
     volumes:
-      - ./../data/logs:/app/logs
+      - /home/ec2-user/grafana/promtail/data/logs:/app/logs
     depends_on:
       - boot-otel-tempo-provider1
 networks:
-  xs-bridge:
+  grafana_apm:
     external: true
