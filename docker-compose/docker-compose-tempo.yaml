@@ -13,7 +13,7 @@ services:
       PROVIDER1_DB_USER: postgres
       PROVIDER1_DB_PASS: postgrespassword
     volumes:
-      - /home/ec2-user/grafana/promtail/data/logs:/app/logs
+      - /home/ec2-user/grafana/promtail:/app/logs
     external_links:
       - grafana_tempo_1:tempo
     depends_on:
@@ -44,7 +44,7 @@ services:
     environment:
       PROVIDER1_URL_BASE: "http://boot-otel-tempo-provider1:8090"
     volumes:
-      - /home/ec2-user/grafana/promtail/data/logs:/app/logs
+      - /home/ec2-user/grafana/promtail:/app/logs
     depends_on:
       - boot-otel-tempo-provider1
 networks:
