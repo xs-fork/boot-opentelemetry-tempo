@@ -1,5 +1,5 @@
 FROM mnadeem/boot-otel-tempo-docker:0.0.1-SNAPSHOT
-ENV APP_NAME boot-otel-tempo-provider1
+ENV APP_NAME demo-provider
 
 COPY ./target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
 
