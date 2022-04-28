@@ -5,7 +5,7 @@ services:
     image: "mnadeem/boot-otel-tempo-provider1:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-provider1
     networks:
-      - grafana_apm
+      - grafana_default
     ports:
       - "8070:8090"
     environment:
@@ -22,7 +22,7 @@ services:
     image: postgres
     container_name: provider1-db
     networks:
-      - grafana_apm
+      - grafana_default
     restart: always
     environment:
       - POSTGRES_DB=provider1
@@ -38,7 +38,7 @@ services:
     image: "mnadeem/boot-otel-tempo-api:0.0.1-SNAPSHOT"
     container_name: boot-otel-tempo-api
     networks:
-      - grafana_apm
+      - grafana_default
     ports:
       - "8071:8080"
     environment:
@@ -48,5 +48,5 @@ services:
     depends_on:
       - boot-otel-tempo-provider1
 networks:
-  grafana_apm:
+  grafana_default:
     external: true
