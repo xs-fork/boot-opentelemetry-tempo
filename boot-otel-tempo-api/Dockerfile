@@ -1,5 +1,5 @@
 FROM mnadeem/boot-otel-tempo-docker:0.0.1-SNAPSHOT
-ENV APP_NAME demo-openapi
+ENV APP_NAME boot-otel-tempo-api
 
 COPY ./target/${APP_NAME}-*.jar ${APP_HOME}/${APP_NAME}.jar
 
@@ -18,6 +18,6 @@ ENV JAVA_OPTS "${JAVA_OPTS} \
   -Dotel.traces.exporter=jaeger \
   -Dotel.exporter.jaeger.endpoint=http://tempo:14250 \
   -Dotel.metrics.exporter=none \
-  -Dotel.resource.attributes="service.name=${APP_NAME}" \
+  -Dotel.resource.attributes="service.name=demo-openapi" \
   -Dotel.javaagent.debug=true \
   -javaagent:${APP_HOME}/${OTEL_AGENT_JAR_FILE}"
